@@ -1,0 +1,348 @@
+/* ---------------------------------------------------------------
+   Student Performance Dashboard
+   Palette: paper #F5F3EE, ink #1C2733, teal #2F6F6E, line #DEDACF
+   Status:  excellent #3F7D53, passed #3B6E8F,
+            needs-improvement #C97F2E, failed #B4463B
+   Type:    Source Serif 4 (headings), Inter (interface text),
+            IBM Plex Mono (numeric grade values)
+------------------------------------------------------------------ */
+
+:root {
+  --paper: #f5f3ee;
+  --paper-raised: #fbfaf7;
+  --ink: #1c2733;
+  --ink-soft: #4a5568;
+  --line: #dedacf;
+  --teal: #2f6f6e;
+  --teal-dark: #234f4e;
+
+  --excellent: #3f7d53;
+  --passed: #3b6e8f;
+  --needs-improvement: #c97f2e;
+  --failed: #b4463b;
+
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px 24px 72px;
+}
+
+/* ---------- Masthead ---------- */
+
+.masthead {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+
+.masthead__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.masthead__subtitle {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+/* ---------- Controls ---------- */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 16px 20px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  padding: 20px;
+  margin-bottom: 28px;
+}
+
+.controls__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.controls__field--grow {
+  flex: 1 1 260px;
+}
+
+.controls__field label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.controls__field input,
+.controls__field select {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+}
+
+.controls__field input:focus,
+.controls__field select:focus,
+.btn:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
+}
+
+.controls__buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--teal);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--teal-dark);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.btn--ghost:hover {
+  border-color: var(--ink);
+}
+
+/* ---------- Summary strip ---------- */
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+
+.summary__stat {
+  padding: 18px 20px;
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary__stat:first-child {
+  border-left: none;
+}
+
+.summary__value {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.summary__label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- Message area ---------- */
+
+.message {
+  min-height: 1.4em;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+/* ---------- Student list ---------- */
+
+.student-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.student-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--ink-soft);
+  padding: 16px 18px;
+}
+
+.student-card.status-excellent {
+  border-left-color: var(--excellent);
+}
+
+.student-card.status-passed {
+  border-left-color: var(--passed);
+}
+
+.student-card.status-needs-improvement {
+  border-left-color: var(--needs-improvement);
+}
+
+.student-card.status-failed {
+  border-left-color: var(--failed);
+}
+
+.student-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.student-card__name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.student-card__block {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.student-card__scores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+.student-card__scores > div {
+  text-align: center;
+  border: 1px solid var(--line);
+  padding: 6px 4px;
+}
+
+.student-card__scores dt {
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.student-card__scores dd {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  margin: 2px 0 0;
+}
+
+.student-card__grade {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.student-card__grade-value {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.student-card__grade-label {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.student-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 0.74rem;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+
+.status-excellent .tag--status {
+  color: var(--excellent);
+  border-color: var(--excellent);
+}
+
+.status-passed .tag--status {
+  color: var(--passed);
+  border-color: var(--passed);
+}
+
+.status-needs-improvement .tag--status {
+  color: var(--needs-improvement);
+  border-color: var(--needs-improvement);
+}
+
+.status-failed .tag--status {
+  color: var(--failed);
+  border-color: var(--failed);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .controls__buttons {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .controls__buttons .btn {
+    flex: 1;
+  }
+
+  .summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .summary__stat:nth-child(3) {
+    border-left: none;
+  }
+
+  .summary__stat:nth-child(odd) {
+    border-left: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
