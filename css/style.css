@@ -1,348 +1,226 @@
-/* ---------------------------------------------------------------
-   Student Performance Dashboard
-   Palette: paper #F5F3EE, ink #1C2733, teal #2F6F6E, line #DEDACF
-   Status:  excellent #3F7D53, passed #3B6E8F,
-            needs-improvement #C97F2E, failed #B4463B
-   Type:    Source Serif 4 (headings), Inter (interface text),
-            IBM Plex Mono (numeric grade values)
------------------------------------------------------------------- */
-
-:root {
-  --paper: #f5f3ee;
-  --paper-raised: #fbfaf7;
-  --ink: #1c2733;
-  --ink-soft: #4a5568;
-  --line: #dedacf;
-  --teal: #2f6f6e;
-  --teal-dark: #234f4e;
-
-  --excellent: #3f7d53;
-  --passed: #3b6e8f;
-  --needs-improvement: #c97f2e;
-  --failed: #b4463b;
-
-  --font-display: "Source Serif 4", Georgia, serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-}
-
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body);
-  line-height: 1.5;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+    padding: 30px;
 }
 
-.page {
-  max-width: 1040px;
-  margin: 0 auto;
-  padding: 48px 24px 72px;
+.container {
+    max-width: 1100px;
+    margin: auto;
 }
 
-/* ---------- Masthead ---------- */
-
-.masthead {
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 24px;
-  margin-bottom: 32px;
+header {
+    background: #1f4e79;
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    text-align: center;
 }
 
-.masthead__title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
-  margin: 0 0 10px;
-  letter-spacing: -0.01em;
+header h1 {
+    margin-bottom: 8px;
 }
-
-.masthead__subtitle {
-  margin: 0;
-  max-width: 62ch;
-  color: var(--ink-soft);
-  font-size: 0.98rem;
-}
-
-/* ---------- Controls ---------- */
 
 .controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  gap: 16px 20px;
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  padding: 20px;
-  margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 15px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.controls__field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 160px;
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.controls__field--grow {
-  flex: 1 1 260px;
+.control-group label {
+    font-weight: bold;
 }
 
-.controls__field label {
-  font-size: 0.78rem;
-  color: var(--ink-soft);
+input,
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
-.controls__field input,
-.controls__field select {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  padding: 9px 11px;
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--ink);
+.buttons {
+    display: flex;
+    align-items: end;
+    gap: 8px;
 }
 
-.controls__field input:focus,
-.controls__field select:focus,
-.btn:focus-visible {
-  outline: 2px solid var(--teal);
-  outline-offset: 1px;
+button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.controls__buttons {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
+#applyBtn {
+    background: #1f4e79;
+    color: white;
 }
 
-.btn {
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  font-weight: 600;
-  padding: 10px 18px;
-  border: 1px solid transparent;
-  cursor: pointer;
+#resetBtn {
+    background: #777;
+    color: white;
 }
 
-.btn--primary {
-  background: var(--teal);
-  color: #fff;
+button:hover {
+    opacity: 0.9;
 }
-
-.btn--primary:hover {
-  background: var(--teal-dark);
-}
-
-.btn--ghost {
-  background: transparent;
-  border-color: var(--line);
-  color: var(--ink);
-}
-
-.btn--ghost:hover {
-  border-color: var(--ink);
-}
-
-/* ---------- Summary strip ---------- */
 
 .summary {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--line);
-  margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
-.summary__stat {
-  padding: 18px 20px;
-  border-left: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.summary-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.summary__stat:first-child {
-  border-left: none;
+.summary-card h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: #555;
 }
 
-.summary__value {
-  font-family: var(--font-mono);
-  font-size: 1.6rem;
-  font-weight: 500;
+.summary-card span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1f4e79;
 }
 
-.summary__label {
-  font-size: 0.78rem;
-  color: var(--ink-soft);
+.section-title {
+    margin-bottom: 15px;
 }
 
-/* ---------- Message area ---------- */
-
-.message {
-  min-height: 1.4em;
-  color: var(--ink-soft);
-  font-style: italic;
-  margin-bottom: 16px;
-}
-
-/* ---------- Student list ---------- */
-
-.student-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
+#studentList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
 }
 
 .student-card {
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--ink-soft);
-  padding: 16px 18px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.student-card.status-excellent {
-  border-left-color: var(--excellent);
+.student-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-.student-card.status-passed {
-  border-left-color: var(--passed);
+.student-header h3 {
+    color: #1f4e79;
 }
 
-.student-card.status-needs-improvement {
-  border-left-color: var(--needs-improvement);
+.student-id {
+    font-size: 13px;
+    color: #777;
 }
 
-.student-card.status-failed {
-  border-left-color: var(--failed);
+.student-card > p {
+    margin-bottom: 15px;
 }
 
-.student-card__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 12px;
+.scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-.student-card__name {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 600;
-  margin: 0;
+.scores div {
+    background: #f0f3f7;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
 }
 
-.student-card__block {
-  font-size: 0.78rem;
-  color: var(--ink-soft);
-  white-space: nowrap;
+.scores span {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 5px;
 }
 
-.student-card__scores {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin: 0 0 14px;
+.scores strong {
+    font-size: 18px;
 }
 
-.student-card__scores > div {
-  text-align: center;
-  border: 1px solid var(--line);
-  padding: 6px 4px;
+.result {
+    border-top: 1px solid #ddd;
+    padding-top: 12px;
 }
 
-.student-card__scores dt {
-  font-size: 0.7rem;
-  color: var(--ink-soft);
-  margin: 0;
+.result p {
+    margin: 7px 0;
 }
 
-.student-card__scores dd {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  margin: 2px 0 0;
+#messageArea {
+    text-align: center;
+    margin: 15px 0;
+    font-weight: bold;
+    color: #b00020;
 }
 
-.student-card__grade {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 12px;
+@media (max-width: 850px) {
+    .controls {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #studentList {
+        grid-template-columns: 1fr;
+    }
 }
 
-.student-card__grade-value {
-  font-family: var(--font-mono);
-  font-size: 1.4rem;
-  font-weight: 500;
-}
+@media (max-width: 550px) {
+    body {
+        padding: 15px;
+    }
 
-.student-card__grade-label {
-  font-size: 0.78rem;
-  color: var(--ink-soft);
-}
+    .controls,
+    .summary {
+        grid-template-columns: 1fr;
+    }
 
-.student-card__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+    .buttons {
+        align-items: stretch;
+    }
 
-.tag {
-  font-size: 0.74rem;
-  padding: 3px 9px;
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
-}
-
-.status-excellent .tag--status {
-  color: var(--excellent);
-  border-color: var(--excellent);
-}
-
-.status-passed .tag--status {
-  color: var(--passed);
-  border-color: var(--passed);
-}
-
-.status-needs-improvement .tag--status {
-  color: var(--needs-improvement);
-  border-color: var(--needs-improvement);
-}
-
-.status-failed .tag--status {
-  color: var(--failed);
-  border-color: var(--failed);
-}
-
-/* ---------- Responsive ---------- */
-
-@media (max-width: 640px) {
-  .controls__buttons {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .controls__buttons .btn {
-    flex: 1;
-  }
-
-  .summary {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .summary__stat:nth-child(3) {
-    border-left: none;
-  }
-
-  .summary__stat:nth-child(odd) {
-    border-left: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-  }
+    .buttons button {
+        flex: 1;
+    }
 }

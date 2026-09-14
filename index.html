@@ -1,83 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Student Performance Dashboard</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Performance Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <div class="page">
-    <header class="masthead">
-      <h1 class="masthead__title">Student Performance Dashboard</h1>
-      <p class="masthead__subtitle">
-        Grading term overview for the 31-ITE blocks, weighted from Quiz (25%), Laboratory (35%), and the Prelim Exam (40%).
-      </p>
-    </header>
 
-    <section class="controls" aria-label="Search and filters">
-      <div class="controls__field controls__field--grow">
-        <label for="searchInput">Student name</label>
-        <input type="text" id="searchInput" placeholder="Enter student name" autocomplete="off" />
-      </div>
+    <div class="container">
 
-      <div class="controls__field">
-        <label for="blockFilter">Block</label>
-        <select id="blockFilter">
-          <option value="All">All</option>
-          <option value="31-ITE-01">31-ITE-01</option>
-          <option value="31-ITE-02">31-ITE-02</option>
-          <option value="31-ITE-03">31-ITE-03</option>
-        </select>
-      </div>
+        <header>
+            <h1>Student Performance Dashboard</h1>
+            <p>Interactive student performance monitoring system</p>
+        </header>
 
-      <div class="controls__field">
-        <label for="statusFilter">Status</label>
-        <select id="statusFilter">
-          <option value="All">All</option>
-          <option value="Excellent">Excellent</option>
-          <option value="Passed">Passed</option>
-          <option value="Needs Improvement">Needs Improvement</option>
-          <option value="Failed">Failed</option>
-        </select>
-      </div>
+        <section class="controls">
 
-      <div class="controls__buttons">
-        <button type="button" id="applyBtn" class="btn btn--primary">Apply Filters</button>
-        <button type="button" id="resetBtn" class="btn btn--ghost">Reset</button>
-      </div>
-    </section>
+            <div class="control-group">
+                <label for="searchInput">Search Student</label>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Enter student name"
+                >
+            </div>
 
-    <section class="summary" aria-label="Class summary">
-      <div class="summary__stat">
-        <span class="summary__value" id="displayedCount">0</span>
-        <span class="summary__label">Displayed</span>
-      </div>
-      <div class="summary__stat">
-        <span class="summary__value" id="classAverage">0.00</span>
-        <span class="summary__label">Class Average</span>
-      </div>
-      <div class="summary__stat">
-        <span class="summary__value" id="passingCount">0</span>
-        <span class="summary__label">Passing</span>
-      </div>
-      <div class="summary__stat">
-        <span class="summary__value" id="topStudent">&mdash;</span>
-        <span class="summary__label">Top Student</span>
-      </div>
-    </section>
+            <div class="control-group">
+                <label for="blockFilter">Block</label>
 
-    <div id="messageArea" class="message" role="status"></div>
+                <select id="blockFilter">
+                    <option value="All">All</option>
+                    <option value="31-ITE-01">31-ITE-01</option>
+                    <option value="31-ITE-02">31-ITE-02</option>
+                    <option value="31-ITE-03">31-ITE-03</option>
+                </select>
+            </div>
 
-    <main id="studentList" class="student-list" aria-live="polite"></main>
-  </div>
+            <div class="control-group">
+                <label for="statusFilter">Status</label>
 
-  <script type="module" src="js/main.js"></script>
+                <select id="statusFilter">
+                    <option value="All">All</option>
+                    <option value="Excellent">Excellent</option>
+                    <option value="Passed">Passed</option>
+                    <option value="Needs Improvement">Needs Improvement</option>
+                    <option value="Failed">Failed</option>
+                </select>
+            </div>
+
+            <div class="buttons">
+                <button id="applyBtn">Apply Filters</button>
+                <button id="resetBtn">Reset</button>
+            </div>
+
+        </section>
+
+        <section class="summary">
+
+            <div class="summary-card">
+                <h2>Class Average</h2>
+                <span id="classAverage">0.00</span>
+            </div>
+
+            <div class="summary-card">
+                <h2>Passing Count</h2>
+                <span id="passingCount">0</span>
+            </div>
+
+            <div class="summary-card">
+                <h2>Displayed Count</h2>
+                <span id="displayedCount">0</span>
+            </div>
+
+            <div class="summary-card">
+                <h2>Top Student</h2>
+                <span id="topStudent">None</span>
+            </div>
+
+        </section>
+
+        <div id="messageArea"></div>
+
+        <section>
+            <h2 class="section-title">Student Records</h2>
+
+            <div id="studentList"></div>
+        </section>
+
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+
 </body>
 </html>

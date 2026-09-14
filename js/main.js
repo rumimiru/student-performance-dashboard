@@ -1,10 +1,16 @@
-// main.js
-// Entry point: wires the data module, grade utilities, and display module
-// to the page's controls. Owns all event listeners.
-
 import { students } from "./students.js";
-import { searchStudents, filterStudentsByBlock, filterStudentsByStatus } from "./gradeUtils.js";
-import { displayStudents, displaySummary } from "./display.js";
+
+import {
+    searchStudents,
+    filterStudentsByBlock,
+    filterStudentsByStatus
+} from "./gradeUtils.js";
+
+import {
+    displayStudents,
+    displaySummary,
+    displayMessage
+} from "./display.js";
 
 const searchInput = document.getElementById("searchInput");
 const blockFilter = document.getElementById("blockFilter");
@@ -12,49 +18,55 @@ const statusFilter = document.getElementById("statusFilter");
 const applyBtn = document.getElementById("applyBtn");
 const resetBtn = document.getElementById("resetBtn");
 
-/**
- * Read the three controls, apply search + block filter + status filter
- * together, and return the resulting student array.
- */
-function getFilteredResults() {
-  const query = searchInput.value;
-  const block = blockFilter.value;
-  const status = statusFilter.value;
+function applyFilters() {
+    const query = searchInput.value;
+    const selectedBlock = blockFilter.value;
+    const selectedStatus = statusFilter.value;
 
-  const searched = searchStudents(students, query);
-  const byBlock = filterStudentsByBlock(searched, block);
-  const byStatus = filterStudentsByStatus(byBlock, status);
+    let filteredStudents = students;
 
-  return byStatus;
+    if (query.trim() !== "") {
+        filteredStudents = searchStudents(filteredStudents, query);
+    }
+
+    filteredStudents = filterStudentsByBlock(
+        filteredStudents,
+        selectedBlock
+    );
+
+    filteredStudents = filterStudentsByStatus(
+        filteredStudents,
+        selectedStatus
+    );
+
+    displayStudents(filteredStudents);
+    displaySummary(filteredStudents);
+
+    if (filteredStudents.length === 0) {
+        displayMessage("No students found");
+    }
 }
 
-/**
- * Recompute the current result set from the controls and refresh the UI.
- */
-function renderCurrentResults() {
-  const results = getFilteredResults();
-  displayStudents(results);
-  displaySummary(results);
+function resetDashboard() {
+    searchInput.value = "";
+    blockFilter.value = "All";
+    statusFilter.value = "All";
+
+    displayStudents(students);
+    displaySummary(students);
+    displayMessage("");
 }
 
-function handleApply() {
-  renderCurrentResults();
-}
+searchInput.addEventListener("input", applyFilters);
 
-function handleReset() {
-  searchInput.value = "";
-  blockFilter.value = "All";
-  statusFilter.value = "All";
-  displayStudents(students);
-  displaySummary(students);
-}
+applyBtn.addEventListener("click", applyFilters);
 
-applyBtn.addEventListener("click", handleApply);
-resetBtn.addEventListener("click", handleReset);
-searchInput.addEventListener("input", renderCurrentResults);
-blockFilter.addEventListener("change", renderCurrentResults);
-statusFilter.addEventListener("change", renderCurrentResults);
+resetBtn.addEventListener("click", resetDashboard);
 
-// Initial render: show all six records and the initial summary immediately.
+blockFilter.addEventListener("change", applyFilters);
+
+statusFilter.addEventListener("change", applyFilters);
+
 displayStudents(students);
 displaySummary(students);
+displayMessage("");
